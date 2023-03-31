@@ -9,70 +9,72 @@ O questionário de perguntas envolverá 12 títulos e 12 sub-títulos, bem como 
 FrontPagePosts.cs ( Modelo C# Sharp )
 
 ```
+CREATE TABLE [FrontPagePosts] (
+  [do0FrontPagePostsId] int IDENTITY (1,1) NOT NULL
+, [do0AvatarName] nvarchar(4000) NULL
+, [do0UserName] nvarchar(4000) NULL
+, [Rascunho] bit NOT NULL
+, [Autor] nvarchar(4000) NULL
+, [Data] datetime NULL
+, [Titulo] nvarchar(4000) NULL
+, [Introducao] nvarchar(200) NULL
+, [Descricao] nvarchar(4000) NULL
+, [Pasta] nvarchar(4000) NULL
+, [LinkExterno] bit NOT NULL
+, [LinkUrl] nvarchar(4000) NULL
+, [Reserva1] bit NOT NULL
+);
+GO
+ALTER TABLE [FrontPagePosts] ADD CONSTRAINT [PK_dbo.FrontPagePosts] PRIMARY KEY ([do0FrontPagePostsId]);
+GO
+```
+
+```
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YourNamespace
 {
-    public class FrontPagePostListas
+    public class FrontPagePosts
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FrontPagePostListaId { get; set; }
-
-        [Required]
         public int do0FrontPagePostsId { get; set; }
-
-        [Column(TypeName = "nvarchar(4000)")]
+        public IEnumerable<FrontPagePostLista> FrontPagePostLista { get; set; }
+        [Display(Name = "do0Avatar")]
         public string do0AvatarName { get; set; }
-        
-        [Column(TypeName = "nvarchar(4000)")]
+        [Display(Name = "do0User")]
         public string do0UserName { get; set; }
 
-        [Required]
         public bool Rascunho { get; set; }
 
-        [Column(TypeName = "nvarchar(4000)")]
+        [Display(Name = "AUTOR")]
         public string Autor { get; set; }
-
+        [Display(Name = "DATA")]
         public DateTime? Data { get; set; }
-
-        [Column(TypeName = "nvarchar(4000)")]
+        [Display(Name = "TÍTULO")]
         public string Titulo { get; set; }
-
-        [Column(TypeName = "nvarchar(200)")]
+        [AllowHtml]
+        [StringLength(200, MinimumLength = 0, ErrorMessage = "Número máximo de 200 caracteres !")]
+        [Display(Name = "INTRODUÇÃO")]
         public string Introducao { get; set; }
-
-        [Column(TypeName = "nvarchar(4000)")]
+        [AllowHtml]
+        [StringLength(4000, MinimumLength = 0, ErrorMessage = "Número máximo de 4000 caracteres !")]
+        [Display(Name = "DESCRIÇÃO")]
         public string Descricao { get; set; }
-
-        [Column(TypeName = "nvarchar(4000)")]
+        [Display(Name = "PASTA")]
         public string Pasta { get; set; }
 
-        [Required]
+        [Display(Name = "LINK EXTERNO?")]
         public bool LinkExterno { get; set; }
 
-        [Column(TypeName = "nvarchar(4000)")]
+        [Display(Name = "ENDEREÇO URL LINK")]
         public string LinkUrl { get; set; }
-
-        [Required]
         public bool Reserva1 { get; set; }
-
-        [ForeignKey("do0FrontPagePostsId")]
-        public virtual FrontPagePosts FrontPagePosts { get; set; }
     }
 }
 
 ```
-Please note the following details about the conversion:
-
-The class name is FrontPagePostListas based on the table name.
-Each column in the table has been converted to a property in the C# class with the appropriate data type and constraints.
-The primary key constraint is implemented using the [Key] attribute.
-For the identity column, we use the [DatabaseGenerated(DatabaseGeneratedOption.Identity)] attribute.
-Foreign key constraint is created by adding [ForeignKey("do0FrontPagePostsId")] attribute and defining virtual reference via public virtual FrontPagePosts FrontPagePosts { get; set; }.
-Attributes like [Column(TypeName = "nvarchar(4000)")] have been used to define the data type of columns which do not match a typical C# data type.
 
 Sub-Título - FrontPagePostListas.cs  ( Modelo C# Sharp )
 
@@ -102,28 +104,6 @@ ALTER TABLE [FrontPagePostListas] ADD CONSTRAINT [FK_dbo.FrontPagePostListas_dbo
 GO
 ```
 
-FrontPagePosts.cs ( Modelo C# Sharp )
-
-```
-CREATE TABLE [FrontPagePosts] (
-  [do0FrontPagePostsId] int IDENTITY (1,1) NOT NULL
-, [do0AvatarName] nvarchar(4000) NULL
-, [do0UserName] nvarchar(4000) NULL
-, [Rascunho] bit NOT NULL
-, [Autor] nvarchar(4000) NULL
-, [Data] datetime NULL
-, [Titulo] nvarchar(4000) NULL
-, [Introducao] nvarchar(200) NULL
-, [Descricao] nvarchar(4000) NULL
-, [Pasta] nvarchar(4000) NULL
-, [LinkExterno] bit NOT NULL
-, [LinkUrl] nvarchar(4000) NULL
-, [Reserva1] bit NOT NULL
-);
-GO
-ALTER TABLE [FrontPagePosts] ADD CONSTRAINT [PK_dbo.FrontPagePosts] PRIMARY KEY ([do0FrontPagePostsId]);
-GO
-```
 Sub-Título - FrontPagePostListas.cs  ( Modelo C# Sharp )
 
 ```
@@ -145,7 +125,16 @@ public class FrontPagePostListas
     public bool Reserva1 { get; set; }
 }
 ```
-This C# class defines all the fields of the FrontPagePostListas table, with the same names and data types. The int and bool values are automatically non-nullable, while string and DateTime values are nullable by default, and therefore, they needed a question mark symbol in the declaration to make them nullable.
+Repositório:
+```
+public abstract class AbstractRepository<TEntity, TKey>
+    where TEntity : class
+{
+    protected string StringConnection { get; } = WebConfigurationManager.ConnectionStrings["FrontPagePostsContext"].ConnectionString;
+
+    ... >>> Parte I
+```
+
 
 
 O que poderá ser vinculádo de forma opcional? 
