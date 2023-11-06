@@ -1,10 +1,5 @@
 # C# Sharp MVC ASP.NET 4.8 Identity 
 
-Vamos personalizar o nosso sistema de autenticações e autorizações do ASP.NET para que fique exatamente de acordo com a nossa campanha e alinhada com o nosso fundamento de desenvolvimento ágil.
-
-Então a pergunta seria, que Entidades serão necessárias para a criação dessa aplicação?
-
-O questionário de perguntas envolverá 12 títulos e 12 sub-títulos, bem como 12 imagens com a data de cadastro e o nome do grupo e do avatar relacionado.
 
 FrontPagePosts.cs ( Modelo C# Sharp )
 
@@ -135,17 +130,3 @@ public abstract class AbstractRepository<TEntity, TKey>
     ... >>> Parte I
 ```
 
-
-
-O que poderá ser vinculádo de forma opcional? 
-
-1. Vídeo Youtube
-2. Link Externo
-3. Midia Externa
-4. Telegram
-5. Twitter
-6. Chat GPT
-7. Mídia Instragram
-8. Mídia Pinterinterest
-9. E-Mail
-10. 
